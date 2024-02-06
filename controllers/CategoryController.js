@@ -2,8 +2,7 @@ const CategoryModel = require('../models/CategoryModel');
 const categoryadd = async(req,res) => {
     try{
 
-        let dupcategory = CategoryModel.findOne({category : req.body.category});
-
+        let dupcategory = await CategoryModel.findOne({category : req.body.category});
         if(dupcategory){
             return res.status(200).send({
                 success : true,
@@ -39,6 +38,19 @@ const categoryview = async(req,res) => {
     }
 }
 
+const categoryDelete = async(req,res) => {
+    try{
+        let deleteData = await CategoryModel.findById(req.query.id);
+        return res.status(200).send({
+            success : true,
+            message : "Category successfully delete"
+        })
+    }catch(err){
+        console.log(err);
+        return false;
+    }
+}
+
 module.exports = {
-    categoryadd,categoryview
+    categoryadd,categoryview,categoryDelete
 };
