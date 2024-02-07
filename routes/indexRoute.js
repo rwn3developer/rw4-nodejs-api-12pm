@@ -3,7 +3,7 @@ const express = require('express');
 const routes = express.Router();
 
 //middleware chhe token ne verify kare chhe
-const { verifyToken, adminRole, managerRole } = require('../middleware/verifyToken');
+const { verifyToken, adminRole} = require('../middleware/verifyToken');
 
 
 
@@ -17,8 +17,8 @@ routes.post('/registeruser',authcontroller.registeruser);
 
 
 //category
-routes.post('/categoryadd',verifyToken,adminRole(["admin","manager"]),categorycontroller.categoryadd);
-routes.get('/categoryview',verifyToken,managerRole('manager'),categorycontroller.categoryview);
+routes.post('/categoryadd',verifyToken,adminRole(["admin"]),categorycontroller.categoryadd);
+routes.get('/categoryview',verifyToken,categorycontroller.categoryview);
 routes.delete('/categoryDelete',verifyToken,adminRole(["admin"]),categorycontroller.categoryDelete);
 
 

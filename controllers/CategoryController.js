@@ -40,7 +40,7 @@ const categoryview = async(req,res) => {
 
 const categoryDelete = async(req,res) => {
     try{
-        let deleteData = await CategoryModel.findById(req.query.id);
+        let deleteData = await CategoryModel.findByIdAndDelete(req.query.id);
         return res.status(200).send({
             success : true,
             message : "Category successfully delete"
