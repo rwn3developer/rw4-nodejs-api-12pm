@@ -9,6 +9,6 @@
     "passport-jwt": "^4.0.1"
   },
   "scripts": {
-    "start": "nodemon dev-index.js"
+    "start": "nodemon index.js"
   }
 }
