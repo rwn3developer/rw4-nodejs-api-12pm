@@ -9,11 +9,26 @@ const { verifyToken, adminRole} = require('../middleware/verifyToken');
 
 const authcontroller = require('../controllers/AuthController');
 const categorycontroller = require('../controllers/CategoryController');
+const productcontroller = require('../controllers/ProductController');
 
 const passport = require('passport');
 
+const multer = require('multer');
+
 routes.post('/login',authcontroller.login)
 routes.post('/registeruser',authcontroller.registeruser);
+
+//file upload
+const storage = multer.diskStorage({
+    destination : (req,file,cb) => {
+        return cb(null,'uploads')
+    },
+    filename : (req,file,cb) => {
+        return cb(null,file.originalname)
+    }
+})
+
+const imageUpload = multer({storage : storage}).single('image');
 
 
 //category
@@ -25,5 +40,9 @@ routes.put('/categoryupdate',verifyToken,adminRole(["admin","manager"]),category
 routes.put('/categoryActive',verifyToken,adminRole(["admin"]),categorycontroller.categoryActive);
 routes.put('/categoryInctive',verifyToken,adminRole(["admin"]),categorycontroller.categoryInctive);
 
+
+//product
+routes.post('/productadd',verifyToken,adminRole(["admin","manager"]),imageUpload,productcontroller.addproduct)
+routes.get('/productview',verifyToken,adminRole(["admin","manager"]),productcontroller.productview)
 
 module.exports = routes;
