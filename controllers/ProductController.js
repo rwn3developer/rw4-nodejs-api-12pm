@@ -24,15 +24,15 @@ const addproduct = async(req,res) => {
 
 const productview = async(req,res) => {
     try{
-        // let product = await productModel.find({status : 1}).populate("categoryId");
-        // return res.status(200).send({
-        //     "success" : true,
-        //     "message" : "product successfully fetched",
-        //     "product length" : product.length,
-        //     "product" : product
-        // })
+        let product = await productModel.find({}).populate("categoryId");
+        return res.status(200).send({
+            "success" : true,
+            "message" : "product successfully fetched",
+            "product length" : product.length,
+            "product" : product
+        })
 
-        //category wise record join using aggregate
+        // //category wise record join using aggregate
         // let product = await categoryModel.aggregate([
         //     {
         //         $lookup: {
@@ -48,22 +48,22 @@ const productview = async(req,res) => {
         // })
 
         //product wise record join using aggregate
-         let product = await productModel.aggregate([
-            {
-                $lookup: {
-                    from: "categories",
-                    localField: "categoryId",
-                    foreignField: "_id",
-                    as: "category"
-                },
-            },
-            {
-                $match : {name : "vivo"}
-            }
-        ])
-        return res.status(200).send({
-            product
-        })
+        //  let product = await productModel.aggregate([
+        //     {
+        //         $lookup: {
+        //             from: "categories",
+        //             localField: "categoryId",
+        //             foreignField: "_id",
+        //             as: "category"
+        //         },
+        //     },
+        //     {
+        //         $match : {name : "vivo"}
+        //     }
+        // ])
+        // return res.status(200).send({
+        //     product
+        // })
 
     }catch(err){
         console.log(err);
