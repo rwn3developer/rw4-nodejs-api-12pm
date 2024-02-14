@@ -34,11 +34,17 @@ const viewcart = async(req,res) => {
         let record = cart.filter((val)=>{
             return val.userId._id == req.user.user._id
         })
+        
+        let sum = 0;
+       let finalToal = record.map((final)=>{
+            return sum = sum + final.price * final.qty
+       })
        
         return res.status(200).send({
             success : true,
             message : "cart fetch",
             length : record.length,
+            total : sum,
             record
            
         })
