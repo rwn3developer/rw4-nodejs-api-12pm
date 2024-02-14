@@ -26,9 +26,6 @@ const addtocart = async(req,res) => {
 
 const viewcart = async(req,res) => {
     try{    
-
-       
-
         let cart = await addCart.find({}).populate("userId","name email").populate("categoryId");
 
         let record = cart.filter((val)=>{
@@ -54,6 +51,20 @@ const viewcart = async(req,res) => {
     }
 }
 
+const adminViewcart = async(req,res) => {
+    try{
+        let cart = await addCart.find({});
+        return res.status(200).send({
+            success : true,
+            message : "admin all user cart fetch",
+            cart
+        })
+    }catch(err){
+        console.log(err);
+        return false;
+    }
+}
+
 module.exports = {
-    addtocart,viewcart
+    addtocart,viewcart,adminViewcart
 }

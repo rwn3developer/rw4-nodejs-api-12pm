@@ -83,6 +83,33 @@ const registeruser = async(req,res) => {
     }
 }
 
+const changepassword = async(req,res) => {
+    try{
+        let email = req.body.email;
+        let chekUser = await UserModel.findOne({email : req.body.email});
+        if(!chekUser){
+            return res.status(200).send({
+                success : false,
+                message : "Email not valid"
+            })
+        }
+        let newpassword = req.body.confirmpassword;
+        let confirmpassword = req.body.confirmpassword;
+        if(newpassword == confirmpassword){
+            
+        }else{
+            return res.status(200).send({
+                success : true,
+                message : "password and confirm password not match"
+            })
+        }
+
+    }catch(err){
+        console.log(err);
+        return false;
+    }
+}
+
 module.exports = {
-    registeruser,login
+    registeruser,login,changepassword
 };

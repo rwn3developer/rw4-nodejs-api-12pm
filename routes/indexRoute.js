@@ -48,4 +48,12 @@ routes.get('/productview',verifyToken,adminRole(["admin","manager"]),productcont
 routes.post('/addtocart',verifyToken,cartcontroller.addtocart);
 routes.get('/viewcart',verifyToken,cartcontroller.viewcart);
 
+
+//admin
+routes.get('/admin/adminViewcart',verifyToken,adminRole(["admin"]),cartcontroller.adminViewcart);
+
+routes.post('/changepassword',verifyToken,authcontroller.changepassword)
+
+
+
 module.exports = routes;
